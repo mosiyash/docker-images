@@ -38,7 +38,7 @@ ENV CONFIG "\
 	--with-file-aio \
     --with-http_spdy_module \
 	--with-ipv6 \
-	--with-ngx_http_rewrite_module \
+	--with-http_rewrite_module \
 	"
 
 RUN \
