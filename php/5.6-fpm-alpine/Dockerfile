@@ -10,7 +10,7 @@ RUN apk add --update libtool \
 	# 	--enable-fpm --with-fpm-user=www-data --with-fpm-group=www-data \
 	# 	--disable-cgi --enable-mysqlnd --enable-mbstring --with-curl \
 	# 	--with-libedit --with-openssl --with-zlib
-	&& apk add openssl-dev libmcrypt-dev curl-dev \
+	&& apk add openssl-dev libmcrypt-dev curl-dev libxml2-dev \
 	&& cd /usr/src/php \
 	&& CONFIGURE_OPTIONS=$(php-config --configure-options) \
 	&& ./configure $CONFIGURE_OPTIONS --with-mcrypt --with-gd \
