@@ -22,4 +22,6 @@ RUN apk add --update libtool \
 	# Install imagemagick \
 	&& apk add imagemagick-dev  \
 	&& pecl install imagick \
-	&& docker-php-ext-enable imagick
+	&& docker-php-ext-enable imagick \
+	# Clear apk cache
+	&& rm -r /var/lib/apt/lists/*
