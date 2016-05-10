@@ -24,4 +24,4 @@ RUN apk add --update libtool \
 	&& pecl install imagick \
 	&& docker-php-ext-enable imagick \
 	# Clear apk cache
-	&& rm -r /var/lib/apt/lists/*
+	&& rm -r /var/cache/apk/*
