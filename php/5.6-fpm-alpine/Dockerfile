@@ -2,7 +2,7 @@ FROM php:5.6-fpm-alpine
 
 MAINTAINER Nikita Mosiyash <nikita.mosiyash@gmail.com>
 
-RUN apk add update \
+RUN apk update \
 	# Install build dependencies \
 	&& apk add --no-cache --virtual .build-deps libtool openssl-dev libmcrypt-dev curl-dev libxml2-dev libedit-dev openssl-dev sqlite-dev imagemagick-dev libpng-dev \
 	# Recompile php with mcrypt, gd. \
