@@ -4,7 +4,7 @@ MAINTAINER Nikita Mosiyash <nikita.mosiyash@gmail.com>
 
 RUN apk update \
 	# Install build dependencies \
-	&& apk add --no-cache --virtual .build-deps libtool openssl-dev libmcrypt-dev curl-dev libxml2-dev libedit-dev openssl-dev sqlite-dev imagemagick-dev libpng-dev \
+	&& apk add libtool openssl-dev libmcrypt-dev curl-dev libxml2-dev libedit-dev openssl-dev sqlite-dev imagemagick-dev libpng-dev \
 	# Recompile php with mcrypt, gd. \
 	# Default configure options is: \
 	# 	--with-config-file-path=/usr/local/etc/php \
@@ -24,6 +24,5 @@ RUN apk update \
 	&& apk add  \
 	&& pecl install imagick \
 	&& docker-php-ext-enable imagick \
-	# Remove build dependencies and clear apk cache \
-	&& apk del .build-deps \
+	# Clear apk cache \
 	&& rm -r /var/cache/apk/*
