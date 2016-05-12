@@ -5,7 +5,7 @@ MAINTAINER Nikita Mosiyash <nikita.mosiyash@gmail.com>
 RUN apk update \
 	# Install build dependencies \
 	&& apk add libtool openssl-dev libmcrypt-dev curl-dev libxml2-dev libedit-dev openssl-dev sqlite-dev imagemagick-dev libpng-dev \
-	# Recompile php with mcrypt, gd. \
+	# Recompile php with mcrypt, gd, pdo-pgsql. \
 	# Default configure options is: \
 	# 	--with-config-file-path=/usr/local/etc/php \
 	# 	--with-config-file-scan-dir=/usr/local/etc/php/conf.d \
@@ -14,7 +14,7 @@ RUN apk update \
 	# 	--with-libedit --with-openssl --with-zlib \
 	&& cd /usr/src/php \
 	&& CONFIGURE_OPTIONS=$(php-config --configure-options) \
-	&& ./configure $CONFIGURE_OPTIONS --with-mcrypt --with-gd \
+	&& ./configure $CONFIGURE_OPTIONS --with-mcrypt --with-gd --with-pdo-pgsql \
 	&& make \
 	&& make install \
 	# Install xhprof \
