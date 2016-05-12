@@ -4,7 +4,7 @@ MAINTAINER Nikita Mosiyash <nikita.mosiyash@gmail.com>
 
 RUN apk update \
 	# Install build dependencies \
-	&& apk add libtool openssl-dev libmcrypt-dev curl-dev libxml2-dev libedit-dev openssl-dev sqlite-dev imagemagick-dev libpng-dev \
+	&& apk add libtool openssl-dev libmcrypt-dev curl-dev libxml2-dev libedit-dev openssl-dev sqlite-dev imagemagick-dev libpng-dev postgresql-dev \
 	# Recompile php with mcrypt, gd, pdo-pgsql. \
 	# Default configure options is: \
 	# 	--with-config-file-path=/usr/local/etc/php \
