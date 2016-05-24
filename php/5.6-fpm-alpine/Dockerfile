@@ -14,7 +14,7 @@ RUN apk update \
 	# 	--with-libedit --with-openssl --with-zlib \
 	&& cd /usr/src/php \
 	&& CONFIGURE_OPTIONS=$(php-config --configure-options) \
-	&& ./configure $CONFIGURE_OPTIONS --with-mcrypt --with-gd --with-pdo-pgsql \
+	&& ./configure $CONFIGURE_OPTIONS --with-mcrypt --with-gd --with-pdo-pgsql --enable-exif \
 	&& make \
 	&& make install \
 	# Install xhprof \
