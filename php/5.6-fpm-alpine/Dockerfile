@@ -28,7 +28,7 @@ RUN \
     && pecl install imagick \
     && docker-php-ext-enable imagick \
     # Install other extensions \
-    && docker-php-ext-install iconv mcrypt mysqli mysqlnd pdo pdo_mysql zip \
+    && docker-php-ext-install exif iconv mcrypt mysqli mysqlnd pdo pdo_mysql zip \
     && docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ \
     && docker-php-ext-install gd \
     # Clear apk cache \
