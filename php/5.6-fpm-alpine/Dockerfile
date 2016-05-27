@@ -1,30 +1,20 @@
-FROM php:5.6-fpm-alpine
+FROM alpine:3.3
 
 MAINTAINER Nikita Mosiyash <nikita.mosiyash@gmail.com>
 
 RUN apk update \
-    # Install build dependencies \
-    && apk add gcc libgcc libtool openssl-dev libmcrypt-dev curl-dev libxml2-dev libedit-dev openssl-dev sqlite-dev imagemagick-dev libjpeg-turbo-dev libpng-dev postgresql-dev \
-    # Recompile php with more extensions. \
-    # Default configure options is: \
-    # 	--with-config-file-path=/usr/local/etc/php \
-    # 	--with-config-file-scan-dir=/usr/local/etc/php/conf.d \
-    # 	--enable-fpm --with-fpm-user=www-data --with-fpm-group=www-data \
-    # 	--disable-cgi --enable-mysqlnd --enable-mbstring --with-curl \
-    # 	--with-libedit --with-openssl --with-zlib \
-    && cd /usr/src/php \
-    && CONFIGURE_OPTIONS=$(php-config --configure-options) \
-    && ./configure $CONFIGURE_OPTIONS \
-        --with-mcrypt --with-pdo-pgsql --enable-exif \
-        --with-gd --with-jpeg-dir=/usr --with-png-dir=/usr \
-    && make \
-    && make install \
-    && make clean \
-    # Install xhprof \
-    && pecl install -f xhprof \
-    && docker-php-ext-enable xhprof \
-    # Install imagemagick \
-    && pecl install imagick \
-    && docker-php-ext-enable imagick \
+    apk add \
+        php-dev php-cli php-opcache php-wddx php-pdo_dblib php-mssql php-zlib \
+        php-xml php-xmlreader php-xmlrpc php-xsl php-zip php-sysvmsg php-sysvsem \
+        php-sysvshm php-soap php-sockets php-sqlite3 php-shmop php-snmp  php-posix \
+        php-pspell php-pdo_sqlite php-pgsql php-phar php-pdo_odbc php-pdo_pgsql \
+        php-pdo php-pdo_mysql php-openssl php-pcntl php-mysql php-mysqli php-odbc \
+        php-ldap php-mcrypt php-intl php-json php-gmp php-iconv php-imap php-gd \
+        php-gettext php-enchant php-exif php-ftp php-curl php-dba php-dom php-calendar \
+        php-ctype php-bcmath php-bz2 php-pear php-phpdbg php-embed php-cgi \
+        php-fpm php-common php-doc php-dbg php-memcache \
     # Clear apk cache \
     && rm -r /var/cache/apk/*
+
+EXPOSE 9000
+CMD ["php-fpm"]
