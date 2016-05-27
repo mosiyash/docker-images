@@ -1,28 +1,35 @@
-FROM alpine:3.3
+FROM php:5.6-fpm-alpine
 
 MAINTAINER Nikita Mosiyash <nikita.mosiyash@gmail.com>
 
 RUN \
-    # Ensure www-data user exists. \
-    # Note, that 82 is the standard uid/gid for "www-data" in Alpine. \
-    # http://git.alpinelinux.org/cgit/aports/tree/main/apache2/apache2.pre-install?h=v3.3.2 \
-    # http://git.alpinelinux.org/cgit/aports/tree/main/lighttpd/lighttpd.pre-install?h=v3.3.2 \
-    # http://git.alpinelinux.org/cgit/aports/tree/main/nginx-initscripts/nginx-initscripts.pre-install?h=v3.3.2 \
-    addgroup -g 82 -S www-data \
-    && adduser -u 82 -D -S -G www-data www-data \
-    # Install php
+    # Install build dependencies \
     && apk add --update \
-        php-dev php-cli php-opcache php-wddx php-pdo_dblib php-mssql php-zlib \
-        php-xml php-xmlreader php-xmlrpc php-xsl php-zip php-sysvmsg php-sysvsem \
-        php-sysvshm php-soap php-sockets php-sqlite3 php-shmop php-snmp  php-posix \
-        php-pspell php-pdo_sqlite php-pgsql php-phar php-pdo_odbc php-pdo_pgsql \
-        php-pdo php-pdo_mysql php-openssl php-pcntl php-mysql php-mysqli php-odbc \
-        php-ldap php-mcrypt php-intl php-json php-gmp php-iconv php-imap php-gd \
-        php-gettext php-enchant php-exif php-ftp php-curl php-dba php-dom php-calendar \
-        php-ctype php-bcmath php-bz2 php-pear php-phpdbg php-embed php-cgi \
-        php-fpm php-common php-doc php-dbg php-memcache \
+        autoconf file g++ gcc binutils isl libatomic libtool make re2c libstdc++ libgcc binutils-libs mpc1 mpfr3 gmp libgomp \
+        coreutils libltdl \
+        openssl-dev libmcrypt-dev curl-dev libc-dev musl-dev libxml2-dev \
+        libedit-dev openssl-dev sqlite-dev imagemagick-dev libjpeg-turbo-dev libpng-dev postgresql-dev freetype-dev libmcrypt-dev \
+    # Recompile php with mcrypt, gd, pdo-pgsql. \
+    # Default configure options is: \
+    # 	--with-config-file-path=/usr/local/etc/php \
+    # 	--with-config-file-scan-dir=/usr/local/etc/php/conf.d \
+    # 	--enable-fpm --with-fpm-user=www-data --with-fpm-group=www-data \
+    # 	--disable-cgi --enable-mysqlnd --enable-mbstring --with-curl \
+    # 	--with-libedit --with-openssl --with-zlib \
+    # && cd /usr/src/php \
+    # && CONFIGURE_OPTIONS=$(php-config --configure-options) \
+    # && ./configure $CONFIGURE_OPTIONS --with-mcrypt --with-gd --with-pdo-pgsql --enable-exif \
+    # && make \
+    # && make install \
+    # Install xhprof \
+    && pecl install -f xhprof \
+    && docker-php-ext-enable xhprof \
+    # Install imagemagick \
+    && pecl install imagick \
+    && docker-php-ext-enable imagick \
+    # Install other extensions \
+    && docker-php-ext-install iconv mcrypt mysqli mysqlnd pdo pdo_mysql zip \
+    && docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ \
+    && docker-php-ext-install gd \
     # Clear apk cache \
     && rm -r /var/cache/apk/*
-
-EXPOSE 9000
-CMD ["php-fpm"]
