@@ -2,7 +2,12 @@ FROM alpine:3.3
 
 MAINTAINER Nikita Mosiyash <nikita.mosiyash@gmail.com>
 
-RUN apk update \
+RUN \
+    #  Ensure www-data user exists \
+    set -x \
+	&& addgroup -g 82 -S www-data \
+	&& adduser -u 82 -D -S -G www-data www-data \
+    apk update \
     apk add \
         php-dev php-cli php-opcache php-wddx php-pdo_dblib php-mssql php-zlib \
         php-xml php-xmlreader php-xmlrpc php-xsl php-zip php-sysvmsg php-sysvsem \
