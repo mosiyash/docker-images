@@ -16,7 +16,7 @@ RUN apk update \
     && CONFIGURE_OPTIONS=$(php-config --configure-options) \
     && ./configure $CONFIGURE_OPTIONS \
         --with-mcrypt --with-pdo-pgsql --enable-exif \
-        --with-gd --with-jpeg-dir --with-png-dir \
+        --with-gd --with-jpeg-dir=/usr --with-png-dir=/usr \
     && make \
     && make install \
     && make clean \
