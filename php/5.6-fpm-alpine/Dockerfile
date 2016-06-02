@@ -7,7 +7,7 @@ RUN \
     apk add --update \
         autoconf file g++ gcc binutils isl libatomic libtool make re2c libstdc++ libgcc binutils-libs mpc1 mpfr3 gmp libgomp \
         coreutils libltdl \
-        openssl-dev libmcrypt-dev curl-dev libc-dev musl-dev libxml2-dev \
+        openssl-dev libmcrypt-dev curl-dev libc-dev musl-dev libxml2-dev icu-dev \
         libedit-dev openssl-dev sqlite-dev imagemagick-dev libjpeg-turbo-dev libpng-dev postgresql-dev freetype-dev libmcrypt-dev \
     # Recompile php with mcrypt, gd, pdo-pgsql. \
     # Default configure options is: \
