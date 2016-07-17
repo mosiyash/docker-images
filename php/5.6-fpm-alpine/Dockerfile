@@ -9,6 +9,7 @@ RUN \
         coreutils libltdl \
         openssl-dev libmcrypt-dev curl-dev libc-dev musl-dev libxml2-dev icu-dev \
         libedit-dev openssl-dev sqlite-dev imagemagick-dev libjpeg-turbo-dev libpng-dev postgresql-dev freetype-dev libmcrypt-dev \
+        icu-dev \
     # Recompile php with mcrypt, gd, pdo-pgsql. \
     # Default configure options is: \
     # 	--with-config-file-path=/usr/local/etc/php \
