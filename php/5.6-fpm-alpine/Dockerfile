@@ -35,4 +35,5 @@ RUN \
     && rm -r /var/cache/apk/* \
     # Setup timezone \
     && echo 'date.timezone = UTC' > /usr/local/etc/php/conf.d/date.ini \
+    && echo '[Date]' >> /usr/local/etc/php-fpm.d/www.conf \
     && echo 'date.timezone = UTC' >> /usr/local/etc/php-fpm.d/www.conf
